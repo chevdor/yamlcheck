@@ -2,7 +2,7 @@ use std::path::PathBuf;
 
 use clap::{crate_authors, crate_version, ColorChoice, Parser, Subcommand};
 
-/// `subwasm` allows fetching, parsing and calling some methods on WASM runtimes of Substrate based chains.
+/// `yamlcheck` allows checking a yaml file based on a json schema
 #[derive(Parser)]
 #[clap(version = crate_version!(), author = crate_authors!(), color=ColorChoice::Always)]
 pub struct Opts {
@@ -17,7 +17,7 @@ pub enum SubCommand {
 	Check(CheckOpts),
 }
 
-/// Get/Download the runtime wasm from a running node through rpc
+/// Check a file against a schema
 #[derive(Parser)]
 pub struct CheckOpts {
 	#[clap(short, long, default_value = "schema.json")]

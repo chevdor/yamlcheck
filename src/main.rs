@@ -7,7 +7,7 @@ use serde_json::Value;
 use std::fs::File;
 use valico::json_schema;
 
-/// Main entry point of the `subwasm` cli
+/// Main entry point of the `yamlcheck` cli
 fn main() {
 	env_logger::Builder::from_env(Env::default().default_filter_or("none")).init();
 	let opts: Opts = Opts::parse();
