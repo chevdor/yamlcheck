@@ -6,9 +6,11 @@ use opts::*;
 use serde_json::Value;
 use std::fs::File;
 use valico::json_schema;
+use color_eyre::eyre::Result;
 
 /// Main entry point of the `yamlcheck` cli
-fn main() {
+fn main() -> Result<()> {
+	color_eyre::install()?;
 	env_logger::Builder::from_env(Env::default().default_filter_or("none")).init();
 	let opts: Opts = Opts::parse();
 
@@ -16,11 +18,11 @@ fn main() {
 		SubCommand::Check(check_opts) => {
 			let schema_file = check_opts.schema;
 			let yaml_file = check_opts.file;
-			let json_schema: Value = serde_json::from_reader(File::open(schema_file).unwrap()).unwrap();
-			let yaml: Value = serde_yaml::from_reader(File::open(yaml_file).unwrap()).unwrap();
+			let json_schema: Value = serde_json::from_reader(File::open(schema_file)?)?;
+			let yaml: Value = serde_yaml::from_reader(File::open(yaml_file)?)?;
 
 			let mut scope = json_schema::Scope::new();
-			let schema = scope.compile_and_return(json_schema, false).unwrap();
+			let schema = scope.compile_and_return(json_schema, false)?;
 
 			let validation = schema.validate(&yaml);
 			let validation_result = validation.is_valid();

@@ -1,6 +1,6 @@
 # yamlcheck
 
-A CLI to check a YAML file based on a json schema.
+A CLI based on [valico](https://github.com/s-panferov/valico) to check a YAML file using a json schema.
 
 ## Install
 
@@ -8,7 +8,7 @@ A CLI to check a YAML file based on a json schema.
 
     cargo install yamlcheck
 
-### Using Podman
+### Using Podman/Docker
 
 Well.. nothing to install. An alias at most:
 ```
@@ -17,6 +17,51 @@ alias yamlcheck='podman run --rm -t docker.io/chevdor/yamlcheck'
 
 ## Usage
 
-    SCHEMA=whatever.json
-    YAML=foo.yaml
+`samples/01/file.yaml`:
+```
+name: Bob
+age: 30
+comment: |
+  This is a comment.
+  It can be multiple lines.
+```
+
+`samples/01/schema.json`:
+```
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
+    "title": "Sample Schema",
+    "description": "Sample Schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name"
+        },
+        "age": {
+            "description": "Some numbers",
+            "type": "number"
+        },
+        "comment": {
+            "description": "Optional: Some comment",
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "age"
+    ]
+}
+```
+
+Sample run:
+
+    SCHEMA=samples/01/schema.json
+    YAML=samples/01/file.yaml
     yamlcheck check -s $SCHEMA --file $YAML
+
+Output:
+
+    valid          : true
+    strictly valid : true

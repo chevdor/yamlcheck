@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
+    "title": "Sample Schema",
+    "description": "Sample Schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name"
+        },
+        "age": {
+            "description": "Some numbers",
+            "type": "number"
+        },
+        "comment": {
+            "description": "Optional: Some comment",
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "age"
+    ]
+}

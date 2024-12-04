@@ -1,5 +1,4 @@
 use std::path::PathBuf;
-
 use clap::{crate_authors, crate_version, ColorChoice, Parser, Subcommand};
 
 /// `yamlcheck` allows checking a yaml file based on a json schema

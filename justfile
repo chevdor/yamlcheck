@@ -1,3 +1,7 @@
+ENGINE := "${ENGINE:-docker}"
+DOCKER_USER := "${DOCKER_USER:-chevdor}"
+IMAGE := "yamlcheck"
+REGISTRY := "${REGISTRY:-docker.io}"
 export VERSION := `toml get Cargo.toml package.version | jq -r .`
 
 # List available commands
@@ -6,8 +10,14 @@ _default:
 
 build:
   echo "Building version $VERSION"
-  podman build -t yamlcheck -t docker.io/chevdor/yamlcheck -t "docker.io/chevdor/yamlcheck:$VERSION" .
-  podman images | grep yamlcheck
+  {{ENGINE}} build \
+    -t yamlcheck \
+    -t {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}} \
+    -t "{{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}:$VERSION" \
+    .
+
+  {{ENGINE}} images | grep yamlcheck
 
 docker_push: build
-  podman push docker.io/chevdor/yamlcheck docker.io/chevdor/yamlcheck:$VERSION
+  {{ENGINE}} push {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}
+  {{ENGINE}} push {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}} "{{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}:$VERSION"

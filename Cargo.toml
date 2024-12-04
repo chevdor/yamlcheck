@@ -1,9 +1,9 @@
 [package]
 authors = ["Chevdor <chevdor@gmail.com>"]
 name = "yamlcheck"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
-description = "yamlcheck is a cli"
+description = "yamlcheck is a cli to validate a yaml file against a json schema"
 homepage = "https://github.com/Chevdor/yamlcheck"
 keywords = ["Chevdor"]
 license = "MIT"
@@ -11,14 +11,17 @@ readme = "README.md"
 repository = "https://github.com/Chevdor/yamlcheck"
 
 [dependencies]
-assert_cmd = "2.0"
-env_logger = "0.10"
+assert_cmd = "2.0.16"
+env_logger = "0.11.5"
 log = "0.4"
-clap = { version = "4", features = ["derive", "env", "unicode", "cargo"] }
-serde_json = "1.0"
-valico = { version = "4.0.0-rc.0", git ="https://github.com/s-panferov/valico", branch = "master", features = ["js"] }
-serde_yaml = "0.9"
+clap = { version = "4.5.22", features = ["derive", "env", "unicode", "cargo"] }
+serde_json = "1.0.133"
+valico = { version = "4.0.0", git = "https://github.com/s-panferov/valico", branch = "master", features = [
+    "js",
+] }
+serde_yaml = "0.9.33"
 exitcode = "1.1"
+color-eyre = { version = "0.6.3", default-features = false }
 
 [profile.production]
 inherits = "release"
