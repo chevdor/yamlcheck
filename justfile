@@ -20,4 +20,4 @@ build:
 
 docker_push: build
   {{ENGINE}} push {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}
-  {{ENGINE}} push {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}} "{{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}:$VERSION"
+  {{ENGINE}} push {{REGISTRY}}/{{DOCKER_USER}}/{{IMAGE}}:$VERSION
